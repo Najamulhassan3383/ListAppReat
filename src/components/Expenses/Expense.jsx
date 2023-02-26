@@ -1,6 +1,7 @@
 import Card from "../UI/Card";
 import "./Expense.css";
 import ExpenseItem from "./ExpenseItem";
+import NewExpense from "../NewExpense/NewExpense";
 
 export default function Expense() {
   const expenses = [
@@ -29,12 +30,25 @@ export default function Expense() {
       date: new Date(2021, 5, 12),
     },
   ];
+
+  const handleAdd = (data) => {
+    const expenseData = {
+      ...data,
+      id: (Math.random() * 1000).toFixed(0).toString(),
+    };
+    console.log("i am from expense.jsx");
+    console.log(expenseData);
+  };
+
   return (
-    <Card className="expenses">
-      <ExpenseItem obj={expenses[0]}></ExpenseItem>
-      <ExpenseItem obj={expenses[1]}></ExpenseItem>
-      <ExpenseItem obj={expenses[2]}></ExpenseItem>
-      <ExpenseItem obj={expenses[3]}></ExpenseItem>
-    </Card>
+    <>
+      <NewExpense OnSaveDataToArray={handleAdd} />
+      <Card className="expenses">
+        <ExpenseItem obj={expenses[0]}></ExpenseItem>
+        <ExpenseItem obj={expenses[1]}></ExpenseItem>
+        <ExpenseItem obj={expenses[2]}></ExpenseItem>
+        <ExpenseItem obj={expenses[3]}></ExpenseItem>
+      </Card>
+    </>
   );
 }
