@@ -2,8 +2,10 @@ import Card from "../UI/Card";
 import "./Expense.css";
 import ExpenseItem from "./ExpenseItem";
 import NewExpense from "../NewExpense/NewExpense";
-
+import ExpensesFilter from "./ExpenseFilter";
+import { useState } from "react";
 export default function Expense() {
+  const [filteryear, setFilteryear] = useState("2020");
   const expenses = [
     {
       id: "e1",
@@ -39,11 +41,16 @@ export default function Expense() {
     console.log("i am from expense.jsx");
     console.log(expenseData);
   };
+  const selectYear = (value) => {
+    setFilteryear(value);
+  };
 
   return (
     <>
       <NewExpense OnSaveDataToArray={handleAdd} />
+
       <Card className="expenses">
+        <ExpensesFilter handle={selectYear} />
         <ExpenseItem obj={expenses[0]}></ExpenseItem>
         <ExpenseItem obj={expenses[1]}></ExpenseItem>
         <ExpenseItem obj={expenses[2]}></ExpenseItem>
