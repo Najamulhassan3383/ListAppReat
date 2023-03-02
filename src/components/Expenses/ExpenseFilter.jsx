@@ -1,7 +1,7 @@
 import React from "react";
 import "./Expensefilter.css";
 
-const ExpensesFilter = ({ handle }) => {
+const ExpensesFilter = ({ handle, setyear }) => {
   const handleSelect = (e) => {
     handle(e.target.value);
   };
@@ -9,7 +9,7 @@ const ExpensesFilter = ({ handle }) => {
     <div className="expenses-filter">
       <div className="expenses-filter__control">
         <label>Filter by year</label>
-        <select onChange={handleSelect}>
+        <select value={setyear} onChange={handleSelect}>
           <option value="2022">2022</option>
           <option value="2021">2021</option>
           <option value="2020">2020</option>

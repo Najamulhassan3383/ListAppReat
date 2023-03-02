@@ -4,6 +4,7 @@ import ExpenseItem from "./ExpenseItem";
 import NewExpense from "../NewExpense/NewExpense";
 import ExpensesFilter from "./ExpenseFilter";
 import { useState } from "react";
+let id = 1;
 export default function Expense() {
   const [filteryear, setFilteryear] = useState("2020");
   const expenses = [
@@ -32,6 +33,7 @@ export default function Expense() {
       date: new Date(2021, 5, 12),
     },
   ];
+  const [expense, setExpense] = useState(expenses);
 
   const handleAdd = (data) => {
     const expenseData = {
@@ -40,21 +42,31 @@ export default function Expense() {
     };
     console.log("i am from expense.jsx");
     console.log(expenseData);
+    setExpense((prev) => {
+      return [expenseData, ...prev];
+    });
   };
   const selectYear = (value) => {
     setFilteryear(value);
   };
+  const filterArray = expense.filter((exp) => {
+    return exp.date.getFullYear().toString() === filteryear;
+  });
 
   return (
     <>
       <NewExpense OnSaveDataToArray={handleAdd} />
 
       <Card className="expenses">
-        <ExpensesFilter handle={selectYear} />
-        <ExpenseItem obj={expenses[0]}></ExpenseItem>
-        <ExpenseItem obj={expenses[1]}></ExpenseItem>
-        <ExpenseItem obj={expenses[2]}></ExpenseItem>
-        <ExpenseItem obj={expenses[3]}></ExpenseItem>
+        <ExpensesFilter setyear={filteryear} handle={selectYear} />
+        {filterArray.length === 0 && (
+          <p style={{ color: "white" }}>No Items to Display</p>
+        )}
+        {ExpensesFilter.length > 0 &&
+          filterArray.map((exp) => {
+            id++;
+            return <ExpenseItem key={id} obj={exp}></ExpenseItem>;
+          })}
       </Card>
     </>
   );
