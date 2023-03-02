@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "./NewExpense.css";
 import ExpenseForm from "./ExpenseForm";
 
 export default function NewExpense({ OnSaveDataToArray }) {
+  const [isEditing, setIsEditing] = useState(false);
   const handleSave = (data) => {
     const expenseData = {
       ...data,
@@ -11,9 +12,20 @@ export default function NewExpense({ OnSaveDataToArray }) {
     OnSaveDataToArray(expenseData);
   };
 
+  const handleClick = () => {
+    setIsEditing(true);
+  };
+  const handleCancel = () => {
+    setIsEditing(false);
+  };
+
   return (
     <div className="new-expense">
-      <ExpenseForm OnSaveData={handleSave} />
+      {!isEditing && <button onClick={handleClick}>Add New Expense</button>}
+      {isEditing && (
+        <ExpenseForm onSaveData={handleSave} onCancel={handleCancel} />
+      )}
+      {/* <button onClick={handleClick}>Add New Expense</button> */}
     </div>
   );
 }

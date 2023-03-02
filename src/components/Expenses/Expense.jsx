@@ -4,6 +4,7 @@ import ExpenseItem from "./ExpenseItem";
 import NewExpense from "../NewExpense/NewExpense";
 import ExpensesFilter from "./ExpenseFilter";
 import { useState } from "react";
+import ExpenseChart from "./ExpenseChart";
 let id = 1;
 export default function Expense() {
   const [filteryear, setFilteryear] = useState("2020");
@@ -62,6 +63,7 @@ export default function Expense() {
         {filterArray.length === 0 && (
           <p style={{ color: "white" }}>No Items to Display</p>
         )}
+        <ExpenseChart expenses={filterArray} />
         {ExpensesFilter.length > 0 &&
           filterArray.map((exp) => {
             id++;
